@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class CanvasGameplay : MonoBehaviour
 {
     public TMP_Text timeText;
+    public List<Target> listTarget;
     public Button btnHome;
     public Button btnReplay;
 
@@ -23,9 +24,21 @@ public class CanvasGameplay : MonoBehaviour
         btnReplay.onClick.RemoveListener(OnClickReplay);
     }
 
-    public void Show(bool isShow)
+    public void LoadMission(int num)
     {
-        gameObject.SetActive(isShow);
+        foreach(Target obj in listTarget)
+        {
+            obj.Show(false);
+        }
+        for (int i = 0; i < num; i++)
+        {
+            listTarget[i].Show(true);
+            listTarget[i].InitTarget();
+        }
+    }
+    public void UpdateMission(int num)
+    {
+        listTarget[num].TargetSuccess();
     }
 
     private void OnClickHome()
@@ -48,5 +61,9 @@ public class CanvasGameplay : MonoBehaviour
         float seconds = Mathf.RoundToInt(time % 60);
 
         return minutes.ToString("00") + ":" + seconds.ToString("00");
+    }
+    public void Show(bool isShow)
+    {
+        gameObject.SetActive(isShow);
     }
 }

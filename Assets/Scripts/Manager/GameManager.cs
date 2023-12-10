@@ -172,6 +172,8 @@ public class GameManager : MonoBehaviour
     private void LoadDataLevel(int id)
     {
         numTarget = levelSO.listLevels[id].posCake.Count;
+        CanvasManager.instance.canvasGame.LoadMission(numTarget);
+
         foreach (Node node in _nodes)
         {
             for (int i = 0; i < levelSO.listLevels[id].posCake.Count; i++)
@@ -219,6 +221,7 @@ public class GameManager : MonoBehaviour
         if(numTarget > 0)
         {
             numTarget--;
+            CanvasManager.instance.canvasGame.UpdateMission(numTarget);
             if(numTarget == 0)
             {
                 ChangeState(GameState.Win);
